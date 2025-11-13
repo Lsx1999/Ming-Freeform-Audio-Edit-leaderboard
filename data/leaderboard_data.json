@@ -58,6 +58,63 @@
                         }
                     }
                 ]
+            },
+            "v2": {
+                "name": "版本 v2.0",
+                "metrics": {
+                    "chinese": {
+                        "name": "中文指标 (Chinese)",
+                        "list": [
+                            {
+                                "id": "c_mos",
+                                "name": "MOS ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "c_wer",
+                                "name": "CER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "english": {
+                        "name": "英文指标 (English)",
+                        "list": [
+                            {
+                                "id": "e_mos",
+                                "name": "MOS ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "e_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "name": "模型 A",
+                        "paper": "论文 A",
+                        "scores": {
+                            "c_mos": 4.5,
+                            "c_wer": 5.1,
+                            "e_mos": 4.6,
+                            "e_wer": 4.8
+                        }
+                    },
+                    {
+                        "name": "模型 B",
+                        "paper": "论文 B",
+                        "scores": {
+                            "c_mos": 4.3,
+                            "c_wer": 4.9,
+                            "e_mos": 4.7,
+                            "e_wer": 4.5
+                        }
+                    }
+                ]
             }
         }
     },
