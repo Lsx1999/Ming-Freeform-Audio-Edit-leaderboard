@@ -1,36 +1,93 @@
 {
-    "dataset_alpha": {
-        "name": "数据集 Alpha",
+    "semantic_dataset": {
+        "name": "Semantic",
         "versions": {
             "v1": {
-                "name": "版本 v1.0",
+                "name": "basic-zh",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
                 "metrics": {
-                    "chinese": {
-                        "name": "中文指标 (Chinese)",
+                    "del_task": {
+                        "name": "Deletion",
                         "list": [
                             {
-                                "id": "c_mos",
-                                "name": "MOS ↑",
+                                "id": "del_wer",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "del_acc",
+                                "name": "ACC(%) ↑",
                                 "sort": "desc"
                             },
                             {
-                                "id": "c_wer",
-                                "name": "CER ↓",
+                                "id": "del_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_noedit_wer",
+                                "name": "no-edit WER(%) ↓",
                                 "sort": "asc"
                             }
                         ]
                     },
-                    "english": {
-                        "name": "英文指标 (English)",
+                    "ins_task": {
+                        "name": "Insertion",
                         "list": [
                             {
-                                "id": "e_mos",
-                                "name": "MOS ↑",
+                                "id": "ins_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "ins_acc",
+                                "name": "ACC ↑",
                                 "sort": "desc"
                             },
                             {
-                                "id": "e_wer",
+                                "id": "ins_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "sub_task": {
+                        "name": "Substitution",
+                        "list": [
+                            {
+                                "id": "sub_wer",
                                 "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "sub_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_noedit_wer",
+                                "name": "no-edit WER ↓",
                                 "sort": "asc"
                             }
                         ]
@@ -38,56 +95,114 @@
                 },
                 "models": [
                     {
-                        "name": "模型 A",
-                        "paper": "论文 A",
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
                         "scores": {
-                            "c_mos": 4.5,
-                            "c_wer": 5.1,
-                            "e_mos": 4.6,
-                            "e_wer": 4.8
-                        }
-                    },
-                    {
-                        "name": "模型 B",
-                        "paper": "论文 B",
-                        "scores": {
-                            "c_mos": 4.3,
-                            "c_wer": 4.9,
-                            "e_mos": 4.7,
-                            "e_wer": 4.5
+                            "del_wer": 11.89,
+                            "del_acc": 100,
+                            "del_sim": 0.78,
+                            "del_noedit_wer": 11.49,
+                            "ins_wer": 3.42,
+                            "ins_acc": 80,
+                            "ins_sim": 0.83,
+                            "ins_noedit_wer": 3.52,
+                            "sub_wer": 4.52,
+                            "sub_acc": 78.62,
+                            "sub_sim": 0.82,
+                            "sub_noedit_wer": 4.63
                         }
                     }
                 ]
             },
             "v2": {
-                "name": "版本 v2.0",
+                "name": "basic-en",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
                 "metrics": {
-                    "chinese": {
-                        "name": "中文指标 (Chinese)",
+                    "del_task": {
+                        "name": "Deletion",
                         "list": [
                             {
-                                "id": "c_mos",
-                                "name": "MOS ↑",
+                                "id": "del_wer",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "del_acc",
+                                "name": "ACC(%) ↑",
                                 "sort": "desc"
                             },
                             {
-                                "id": "c_wer",
-                                "name": "CER ↓",
+                                "id": "del_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_noedit_wer",
+                                "name": "no-edit WER(%) ↓",
                                 "sort": "asc"
                             }
                         ]
                     },
-                    "english": {
-                        "name": "英文指标 (English)",
+                    "ins_task": {
+                        "name": "Insertion",
                         "list": [
                             {
-                                "id": "e_mos",
-                                "name": "MOS ↑",
+                                "id": "ins_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "ins_acc",
+                                "name": "ACC ↑",
                                 "sort": "desc"
                             },
                             {
-                                "id": "e_wer",
+                                "id": "ins_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "sub_task": {
+                        "name": "Substitution",
+                        "list": [
+                            {
+                                "id": "sub_wer",
                                 "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "sub_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_noedit_wer",
+                                "name": "no-edit WER ↓",
                                 "sort": "asc"
                             }
                         ]
@@ -95,56 +210,378 @@
                 },
                 "models": [
                     {
-                        "name": "模型 A",
-                        "paper": "论文 A",
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
                         "scores": {
-                            "c_mos": 4.5,
-                            "c_wer": 5.1,
-                            "e_mos": 4.6,
-                            "e_wer": 4.8
+                            "del_wer": 14.85,
+                            "del_acc": 82.22,
+                            "del_sim": 0.76,
+                            "del_noedit_wer": 24.26,
+                            "ins_wer": 6.63,
+                            "ins_acc": 71.43,
+                            "ins_sim": 0.79,
+                            "ins_noedit_wer": 17.70,
+                            "sub_wer": 8.99,
+                            "sub_acc": 59.78,
+                            "sub_sim": 0.78,
+                            "sub_noedit_wer": 19.28
                         }
+                    }
+                ]
+            },
+            "v3": {
+                "name": "full-zh",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
                     },
                     {
-                        "name": "模型 B",
-                        "paper": "论文 B",
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
+                "metrics": {
+                    "del_task": {
+                        "name": "Deletion",
+                        "list": [
+                            {
+                                "id": "del_wer",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "del_acc",
+                                "name": "ACC(%) ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_noedit_wer",
+                                "name": "no-edit WER(%) ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "ins_task": {
+                        "name": "Insertion",
+                        "list": [
+                            {
+                                "id": "ins_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "ins_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "sub_task": {
+                        "name": "Substitution",
+                        "list": [
+                            {
+                                "id": "sub_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "sub_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
                         "scores": {
-                            "c_mos": 4.3,
-                            "c_wer": 4.9,
-                            "e_mos": 4.7,
-                            "e_wer": 4.5
+                            "del_wer": 22.92,
+                            "del_acc": 82.92,
+                            "del_sim": 0.81,
+                            "del_noedit_wer": 17.50,
+                            "ins_wer": 3.89,
+                            "ins_acc": 79.31,
+                            "ins_sim": 0.83,
+                            "ins_noedit_wer": 4.10,
+                            "sub_wer": 4.56,
+                            "sub_acc": 76.62,
+                            "sub_sim": 0.83,
+                            "sub_noedit_wer": 4.75
+                        }
+                    }
+                ]
+            },
+            "v4": {
+                "name": "full-en",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
+                "metrics": {
+                    "del_task": {
+                        "name": "Deletion",
+                        "list": [
+                            {
+                                "id": "del_wer",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "del_acc",
+                                "name": "ACC(%) ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "del_noedit_wer",
+                                "name": "no-edit WER(%) ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "ins_task": {
+                        "name": "Insertion",
+                        "list": [
+                            {
+                                "id": "ins_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "ins_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "ins_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "sub_task": {
+                        "name": "Substitution",
+                        "list": [
+                            {
+                                "id": "sub_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "sub_acc",
+                                "name": "ACC ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_sim",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "sub_noedit_wer",
+                                "name": "no-edit WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
+                        "scores": {
+                            "del_wer": 27.60,
+                            "del_acc": 85,
+                            "del_sim": 0.74,
+                            "del_noedit_wer": 35.21,
+                            "ins_wer": 7.59,
+                            "ins_acc": 62.31,
+                            "ins_sim": 0.79,
+                            "ins_noedit_wer": 18.84,
+                            "sub_wer": 7.64,
+                            "sub_acc": 65.62,
+                            "sub_sim": 0.77,
+                            "sub_noedit_wer": 18.39
                         }
                     }
                 ]
             }
         }
     },
-    "dataset_beta": {
-        "name": "数据集 Beta",
+    "acoustic_dataset": {
+        "name": "Acoustic",
         "versions": {
-            "default": {
-                "name": "主测试集",
+            "v1": {
+                "name": "Speed Alteration",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
                 "metrics": {
-                    "general": {
-                        "name": "通用指标",
+                    "zh": {
+                        "name": "zh",
                         "list": [
                             {
-                                "id": "similarity",
-                                "name": "相似度 ↑",
+                                "id": "speed_wer_zh",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_zh",
+                                "name": "SIM ↑",
                                 "sort": "desc"
                             },
                             {
-                                "id": "f0_rmse",
-                                "name": "F0 RMSE ↓",
+                                "id": "speed_rde_zh",
+                                "name": "RDE(%) ↓",
                                 "sort": "asc"
                             }
                         ]
                     },
-                    "robustness": {
-                        "name": "鲁棒性",
+                    "en": {
+                        "name": "en",
                         "list": [
                             {
-                                "id": "noise_snr",
-                                "name": "噪声 SNR ↑",
+                                "id": "speed_wer_en",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_en",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "speed_rde_en",
+                                "name": "RDE(%) ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
+                        "scores": {
+                            "speed_wer_zh": 5.88,
+                            "speed_sim_zh": 0.66,
+                            "speed_rde_zh": 6.36,
+                            "speed_wer_en": 17.53,
+                            "speed_sim_en": 0.57,
+                            "speed_rde_en": 5.92
+                        }
+                    }
+                ]
+            },
+            "v2": {
+                "name": "Pitch Alteration",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
+                "metrics": {
+                    "zh": {
+                        "name": "zh",
+                        "list": [
+                            {
+                                "id": "speed_wer_zh",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_zh",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            }
+                        ]
+                    },
+                    "en": {
+                        "name": "en",
+                        "list": [
+                            {
+                                "id": "speed_wer_en",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_en",
+                                "name": "SIM ↑",
                                 "sort": "desc"
                             }
                         ]
@@ -152,21 +589,141 @@
                 },
                 "models": [
                     {
-                        "name": "模型 D",
-                        "paper": "论文 D",
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
                         "scores": {
-                            "similarity": 0.95,
-                            "f0_rmse": 0.18,
-                            "noise_snr": 25.1
+                            "speed_wer_zh": 7.45,
+                            "speed_sim_zh": 0.36,
+                            "speed_wer_en": 13.37,
+                            "speed_sim_en": 0.24
                         }
+                    }
+                ]
+            },
+            "v3": {
+                "name": "Volume Alteration",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
                     },
                     {
-                        "name": "模型 E",
-                        "paper": "论文 E",
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
+                "metrics": {
+                    "zh": {
+                        "name": "zh",
+                        "list": [
+                            {
+                                "id": "speed_wer_zh",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_zh",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "speed_rae_zh",
+                                "name": "RAE(%) ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    },
+                    "en": {
+                        "name": "en",
+                        "list": [
+                            {
+                                "id": "speed_wer_en",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_sim_en",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "speed_rae_en",
+                                "name": "RAE(%) ↓",
+                                "sort": "asc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
                         "scores": {
-                            "similarity": 0.93,
-                            "f0_rmse": 0.22,
-                            "noise_snr": 24.5
+                            "speed_wer_zh": 1.71,
+                            "speed_sim_zh": 0.86,
+                            "speed_rae_zh": 14.9,
+                            "speed_wer_en": 1.35,
+                            "speed_sim_en": 0.80,
+                            "speed_rae_en": 11.7
+                        }
+                    }
+                ]
+            },
+            "v4": {
+                "name": "Dialect Conversion",
+                "columns": [
+                    {
+                        "id": "modelName",
+                        "name": "Model",
+                        "type": "text"
+                    },
+                    {
+                        "id": "paper",
+                        "name": "Paper",
+                        "type": "link"
+                    }
+                ],
+                "metrics": {
+                    "zh": {
+                        "name": "zh",
+                        "list": [
+                            {
+                                "id": "speed_wer_zh",
+                                "name": "WER(%) ↓",
+                                "sort": "asc"
+                            },
+                            {
+                                "id": "speed_acc_zh",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "speed_sim_zh",
+                                "name": "SIM ↑",
+                                "sort": "desc"
+                            }
+                        ]
+                    }
+                },
+                "models": [
+                    {
+                        "modelName": "Ming-UniAudio",
+                        "paper": {
+                            "name": "Ming-UniAudio",
+                            "url": "https://arxiv.org/pdf/2511.05516"
+                        },
+                        "scores": {
+                            "speed_wer_zh": 8.93,
+                            "speed_acc_zh": 0.50,
+                            "speed_sim_zh": 0.66
                         }
                     }
                 ]
