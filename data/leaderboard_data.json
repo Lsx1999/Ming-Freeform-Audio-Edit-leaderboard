@@ -1,0 +1,111 @@
+{
+    "dataset_alpha": {
+        "name": "数据集 Alpha",
+        "versions": {
+            "v1": {
+                "name": "版本 v1.0",
+                "metrics": [
+                    {
+                        "id": "mos",
+                        "name": "MOS ↑",
+                        "sort": "desc"
+                    },
+                    {
+                        "id": "wer",
+                        "name": "WER ↓",
+                        "sort": "asc"
+                    }
+                ],
+                "models": [
+                    {
+                        "name": "模型 A",
+                        "paper": "论文 A",
+                        "scores": {
+                            "mos": 4.5,
+                            "wer": 5.1
+                        }
+                    },
+                    {
+                        "name": "模型 B",
+                        "paper": "论文 B",
+                        "scores": {
+                            "mos": 4.3,
+                            "wer": 4.9
+                        }
+                    }
+                ]
+            },
+            "v2": {
+                "name": "版本 v2.0 (困难)",
+                "metrics": [
+                    {
+                        "id": "mos",
+                        "name": "MOS ↑",
+                        "sort": "desc"
+                    },
+                    {
+                        "id": "wer",
+                        "name": "WER ↓",
+                        "sort": "asc"
+                    }
+                ],
+                "models": [
+                    {
+                        "name": "模型 A",
+                        "paper": "论文 A",
+                        "scores": {
+                            "mos": 4.1,
+                            "wer": 8.3
+                        }
+                    },
+                    {
+                        "name": "模型 C",
+                        "paper": "论文 C",
+                        "scores": {
+                            "mos": 4.2,
+                            "wer": 7.5
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "dataset_beta": {
+        "name": "数据集 Beta",
+        "versions": {
+            "default": {
+                "name": "主测试集",
+                "metrics": [
+                    {
+                        "id": "similarity",
+                        "name": "相似度 ↑",
+                        "sort": "desc"
+                    },
+                    {
+                        "id": "f0_rmse",
+                        "name": "F0 RMSE ↓",
+                        "sort": "asc"
+                    }
+                ],
+                "models": [
+                    {
+                        "name": "模型 D",
+                        "paper": "论文 D",
+                        "scores": {
+                            "similarity": 0.95,
+                            "f0_rmse": 0.18
+                        }
+                    },
+                    {
+                        "name": "模型 E",
+                        "paper": "论文 E",
+                        "scores": {
+                            "similarity": 0.93,
+                            "f0_rmse": 0.22
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
