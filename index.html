@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>评测集排行榜</title>
     <style>
-        body {
+        /* ... 其他样式保持不变 ... */
+        body,
+        .container,
+        h1,
+        table {
+            /* 为了简洁，省略了未改变的样式 */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             padding: 2rem;
@@ -41,17 +46,6 @@
             border-bottom: 1px solid #dee2e6;
         }
 
-        thead th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        thead th:hover {
-            background-color: #e9ecef;
-        }
-
         .selector-group {
             display: flex;
             justify-content: center;
@@ -64,16 +58,11 @@
             display: none;
         }
 
-        /* --- 修改开始 --- */
-
-        /* 1. 数据集选择器样式（椭圆形） */
         #dataset-selector label {
             padding: 8px 20px;
-            /* 调整内边距以形成椭圆 */
             margin: 5px;
             border: 1px solid #ced4da;
             border-radius: 20px;
-            /* 使用较大的圆角来创建椭圆/胶囊形状 */
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             font-size: 1rem;
@@ -81,7 +70,6 @@
 
         #dataset-selector input[type="radio"]:checked+label {
             background-color: #0d6efd;
-            /* 选中时背景颜色 */
             color: #fff;
             border-color: #0d6efd;
             font-weight: 600;
@@ -91,10 +79,8 @@
             border-color: #8ab4f8;
         }
 
-        /* 2. 版本选择器样式（空心圆形） */
         #version-selector {
             margin-top: -1rem;
-            /* 调整与上方选择器的间距 */
         }
 
         #version-selector label {
@@ -103,11 +89,9 @@
             cursor: pointer;
             margin: 5px 15px;
             font-size: 1rem;
-            transition: color 0.2s ease-in-out;
             user-select: none;
         }
 
-        /* 使用::before伪元素创建自定义的空心圆形 */
         #version-selector label::before {
             content: '';
             display: inline-block;
@@ -116,7 +100,6 @@
             margin-right: 8px;
             border: 2px solid #adb5bd;
             border-radius: 50%;
-            /* 确保是正圆形 */
             transition: all 0.2s ease-in-out;
             box-sizing: border-box;
         }
@@ -125,7 +108,6 @@
             border-color: #0d6efd;
         }
 
-        /* 选中后，外边框和背景变为浅绿色，并通过内阴影模拟一个填充的圆心 */
         #version-selector input[type="radio"]:checked+label::before {
             border-color: #90ee90;
             background-color: #90ee90;
@@ -136,6 +118,26 @@
             font-weight: 600;
         }
 
+        /* --- 修改开始：调整表头样式以适应复杂结构 --- */
+        thead th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            user-select: none;
+            text-align: center;
+            /* 居中对齐，让合并单元格更好看 */
+            vertical-align: middle;
+            /* 垂直居中 */
+        }
+
+        /* 只有第二行的指标（有data-metric-id属性的）才有点击手势 */
+        thead th[data-metric-id] {
+            cursor: pointer;
+        }
+
+        thead th[data-metric-id]:hover {
+            background-color: #e9ecef;
+        }
+
         /* --- 修改结束 --- */
     </style>
 </head>
@@ -143,10 +145,8 @@
 <body>
     <div class="container">
         <h1>评测集排行榜</h1>
-
         <div id="dataset-selector" class="selector-group"></div>
         <div id="version-selector" class="selector-group"></div>
-
         <div id="leaderboard-container">
             <table id="leaderboard-table">
                 <thead></thead>
@@ -155,19 +155,20 @@
         </div>
     </div>
 
-    <!-- JavaScript部分无需修改 -->
+    <!-- --- 修改开始：JavaScript渲染逻辑重构 --- -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            // --- DOM元素获取和状态定义部分（无变化） ---
             const datasetSelector = document.getElementById('dataset-selector');
             const versionSelector = document.getElementById('version-selector');
             const tableHead = document.querySelector('#leaderboard-table thead');
             const tableBody = document.querySelector('#leaderboard-table tbody');
-
             let allData = {};
             let currentDatasetId = '';
             let currentVersionId = '';
             let currentSort = { metricId: '', direction: '' };
 
+            // --- 数据加载部分（无变化） ---
             try {
                 const response = await fetch('./data/leaderboard_data.json');
                 allData = await response.json();
@@ -177,92 +178,60 @@
                 return;
             }
 
+            // --- 选择器创建和更新逻辑（无变化） ---
             function init() {
-                const datasetIds = Object.keys(allData);
-                if (datasetIds.length === 0) return;
-
-                currentDatasetId = datasetIds[0];
-                createDatasetSelector(datasetIds);
-                updateVersionSelector();
-                render();
+                const datasetIds = Object.keys(allData); if (datasetIds.length === 0) return;
+                currentDatasetId = datasetIds[0]; createDatasetSelector(datasetIds); updateVersionSelector(); render();
             }
-
             function createDatasetSelector(datasetIds) {
-                datasetSelector.innerHTML = '';
-                datasetIds.forEach(id => {
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.id = `ds-${id}`;
-                    input.name = 'dataset';
-                    input.value = id;
-                    if (id === currentDatasetId) input.checked = true;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `ds-${id}`;
-                    label.textContent = allData[id].name;
-
-                    datasetSelector.appendChild(input);
-                    datasetSelector.appendChild(label);
-
-                    input.addEventListener('change', (e) => {
-                        currentDatasetId = e.target.value;
-                        currentSort = { metricId: '', direction: '' };
-                        updateVersionSelector();
-                        render();
-                    });
-                });
+                datasetSelector.innerHTML = ''; datasetIds.forEach(id => { const input = document.createElement('input'); input.type = 'radio'; input.id = `ds-${id}`; input.name = 'dataset'; input.value = id; if (id === currentDatasetId) input.checked = true; const label = document.createElement('label'); label.htmlFor = `ds-${id}`; label.textContent = allData[id].name; datasetSelector.appendChild(input); datasetSelector.appendChild(label); input.addEventListener('change', (e) => { currentDatasetId = e.target.value; currentSort = { metricId: '', direction: '' }; updateVersionSelector(); render(); }); });
             }
-
             function updateVersionSelector() {
-                versionSelector.innerHTML = '';
-                const dataset = allData[currentDatasetId];
-                const versionIds = Object.keys(dataset.versions);
-
-                if (versionIds.length <= 1) {
-                    currentVersionId = versionIds[0];
-                    return;
-                }
-
-                currentVersionId = versionIds[0];
-
-                versionIds.forEach(id => {
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.id = `ver-${id}`;
-                    input.name = 'version';
-                    input.value = id;
-                    if (id === currentVersionId) input.checked = true;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `ver-${id}`;
-                    label.textContent = dataset.versions[id].name;
-
-                    versionSelector.appendChild(input);
-                    versionSelector.appendChild(label);
-
-                    input.addEventListener('change', (e) => {
-                        currentVersionId = e.target.value;
-                        currentSort = { metricId: '', direction: '' };
-                        render();
-                    });
-                });
+                versionSelector.innerHTML = ''; const dataset = allData[currentDatasetId]; const versionIds = Object.keys(dataset.versions); if (versionIds.length <= 1) { currentVersionId = versionIds[0]; return; } currentVersionId = versionIds[0]; versionIds.forEach(id => { const input = document.createElement('input'); input.type = 'radio'; input.id = `ver-${id}`; input.name = 'version'; input.value = id; if (id === currentVersionId) input.checked = true; const label = document.createElement('label'); label.htmlFor = `ver-${id}`; label.textContent = dataset.versions[id].name; versionSelector.appendChild(input); versionSelector.appendChild(label); input.addEventListener('change', (e) => { currentVersionId = e.target.value; currentSort = { metricId: '', direction: '' }; render(); }); });
             }
 
+            /**
+             * 核心渲染函数，负责生成整个表格
+             * @description 此函数已重构以支持两级表头。
+             *              它会动态读取JSON中的metrics分组，并生成合并单元格。
+             */
             function render() {
                 if (!currentDatasetId || !currentVersionId) return;
 
                 const versionData = allData[currentDatasetId].versions[currentVersionId];
-                const metrics = versionData.metrics;
+                const metricsData = versionData.metrics;
                 let models = [...versionData.models];
 
-                tableHead.innerHTML = '';
-                let headerRow = '<tr><th>模型名称</th><th>论文</th>';
-                metrics.forEach(metric => {
-                    headerRow += `<th data-metric-id="${metric.id}" data-sort-dir="${metric.sort}">${metric.name}</th>`;
-                });
-                headerRow += '</tr>';
-                tableHead.innerHTML = headerRow;
+                // 1. 生成表头 (Header)
+                // headerRow1: 顶级分组行 (例如 "中文指标", "英文指标")
+                // headerRow2: 次级具体指标行 (例如 "MOS", "WER")
+                let headerRow1 = '<tr><th rowspan="2">模型名称</th><th rowspan="2">论文</th>';
+                let headerRow2 = '<tr>'; // 第二行从空开始，因为它没有模型和论文列
 
+                // 将所有具体指标平铺到一个数组中，方便后续渲染表体和排序
+                const flatMetrics = [];
+
+                // 遍历指标分组 (例如 "chinese", "english")
+                for (const groupKey in metricsData) {
+                    const group = metricsData[groupKey];
+                    const metricCount = group.list.length;
+
+                    // 【可拓展性】您只需在JSON中添加或删除分组，这里会自动计算合并列数
+                    headerRow1 += `<th colspan="${metricCount}">${group.name}</th>`;
+
+                    // 遍历分组下的具体指标
+                    group.list.forEach(metric => {
+                        // 【可拓展性】您只需在JSON的list中增删指标，这里会自动添加新列
+                        headerRow2 += `<th data-metric-id="${metric.id}" data-sort-dir="${metric.sort}">${metric.name}</th>`;
+                        flatMetrics.push(metric); // 收集到平铺数组
+                    });
+                }
+                headerRow1 += '</tr>';
+                headerRow2 += '</tr>';
+
+                tableHead.innerHTML = headerRow1 + headerRow2;
+
+                // 2. 数据排序 (Sorting)
                 if (currentSort.metricId) {
                     models.sort((a, b) => {
                         const valA = a.scores[currentSort.metricId];
@@ -271,16 +240,19 @@
                     });
                 }
 
+                // 3. 渲染表体 (Body)
                 tableBody.innerHTML = '';
                 models.forEach(model => {
                     let bodyRow = `<tr><td>${model.name}</td><td>${model.paper}</td>`;
-                    metrics.forEach(metric => {
+                    // 使用平铺后的指标数组，确保列的顺序与表头一致
+                    flatMetrics.forEach(metric => {
                         bodyRow += `<td>${model.scores[metric.id] || '-'}</td>`;
                     });
                     bodyRow += '</tr>';
                     tableBody.innerHTML += bodyRow;
                 });
 
+                // 4. 为新表头添加事件监听
                 tableHead.querySelectorAll('th[data-metric-id]').forEach(th => {
                     th.addEventListener('click', () => {
                         currentSort.metricId = th.dataset.metricId;
@@ -293,6 +265,7 @@
             init();
         });
     </script>
+    <!-- --- 修改结束 --- -->
 </body>
 
 </html>

@@ -4,66 +4,57 @@
         "versions": {
             "v1": {
                 "name": "版本 v1.0",
-                "metrics": [
-                    {
-                        "id": "mos",
-                        "name": "MOS ↑",
-                        "sort": "desc"
+                "metrics": {
+                    "chinese": {
+                        "name": "中文指标 (Chinese)",
+                        "list": [
+                            {
+                                "id": "c_mos",
+                                "name": "MOS ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "c_wer",
+                                "name": "CER ↓",
+                                "sort": "asc"
+                            }
+                        ]
                     },
-                    {
-                        "id": "wer",
-                        "name": "WER ↓",
-                        "sort": "asc"
+                    "english": {
+                        "name": "英文指标 (English)",
+                        "list": [
+                            {
+                                "id": "e_mos",
+                                "name": "MOS ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "e_wer",
+                                "name": "WER ↓",
+                                "sort": "asc"
+                            }
+                        ]
                     }
-                ],
+                },
                 "models": [
                     {
                         "name": "模型 A",
                         "paper": "论文 A",
                         "scores": {
-                            "mos": 4.5,
-                            "wer": 5.1
+                            "c_mos": 4.5,
+                            "c_wer": 5.1,
+                            "e_mos": 4.6,
+                            "e_wer": 4.8
                         }
                     },
                     {
                         "name": "模型 B",
                         "paper": "论文 B",
                         "scores": {
-                            "mos": 4.3,
-                            "wer": 4.9
-                        }
-                    }
-                ]
-            },
-            "v2": {
-                "name": "版本 v2.0 (困难)",
-                "metrics": [
-                    {
-                        "id": "mos",
-                        "name": "MOS ↑",
-                        "sort": "desc"
-                    },
-                    {
-                        "id": "wer",
-                        "name": "WER ↓",
-                        "sort": "asc"
-                    }
-                ],
-                "models": [
-                    {
-                        "name": "模型 A",
-                        "paper": "论文 A",
-                        "scores": {
-                            "mos": 4.1,
-                            "wer": 8.3
-                        }
-                    },
-                    {
-                        "name": "模型 C",
-                        "paper": "论文 C",
-                        "scores": {
-                            "mos": 4.2,
-                            "wer": 7.5
+                            "c_mos": 4.3,
+                            "c_wer": 4.9,
+                            "e_mos": 4.7,
+                            "e_wer": 4.5
                         }
                     }
                 ]
@@ -75,25 +66,41 @@
         "versions": {
             "default": {
                 "name": "主测试集",
-                "metrics": [
-                    {
-                        "id": "similarity",
-                        "name": "相似度 ↑",
-                        "sort": "desc"
+                "metrics": {
+                    "general": {
+                        "name": "通用指标",
+                        "list": [
+                            {
+                                "id": "similarity",
+                                "name": "相似度 ↑",
+                                "sort": "desc"
+                            },
+                            {
+                                "id": "f0_rmse",
+                                "name": "F0 RMSE ↓",
+                                "sort": "asc"
+                            }
+                        ]
                     },
-                    {
-                        "id": "f0_rmse",
-                        "name": "F0 RMSE ↓",
-                        "sort": "asc"
+                    "robustness": {
+                        "name": "鲁棒性",
+                        "list": [
+                            {
+                                "id": "noise_snr",
+                                "name": "噪声 SNR ↑",
+                                "sort": "desc"
+                            }
+                        ]
                     }
-                ],
+                },
                 "models": [
                     {
                         "name": "模型 D",
                         "paper": "论文 D",
                         "scores": {
                             "similarity": 0.95,
-                            "f0_rmse": 0.18
+                            "f0_rmse": 0.18,
+                            "noise_snr": 25.1
                         }
                     },
                     {
@@ -101,7 +108,8 @@
                         "paper": "论文 E",
                         "scores": {
                             "similarity": 0.93,
-                            "f0_rmse": 0.22
+                            "f0_rmse": 0.22,
+                            "noise_snr": 24.5
                         }
                     }
                 ]
