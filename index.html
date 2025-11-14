@@ -4,55 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ming-Freeform-Audio-Edit</title>
+    <title>Ming-Freeform-Audio-Edit Leaderboard</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Inter:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
     <style>
+        /* 1. 全局与字体优化 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 2rem;
-            background-color: #f8f9fa;
-            color: #212529;
+            font-family: 'Inter', 'Noto Sans', sans-serif;
+            background-color: #f7f9fb;
+            color: #363636;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .hero .title,
+        thead th {
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 700;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 1.5rem;
+        /* 2. 表格容器与阴影 */
+        .table-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            background-color: #ffffff;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            margin-top: 1.5rem;
+        /* 3. 表格整体样式 */
+        .table {
+            background-color: transparent;
         }
 
-        th,
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #dee2e6;
-            text-align: center;
+        /* 4. 表头 (thead) 的精致化改造 */
+        thead {
+            background-color: #FDFDFD;
+            border-bottom: 2px solid #F0F0F0;
+        }
+
+        thead th {
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        thead th[data-metric-id] {
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .th-group-1 {
+            background-color: rgba(238, 243, 251, 0.6);
+        }
+
+        .th-group-2 {
+            background-color: rgba(251, 238, 238, 0.6);
+        }
+
+        .th-group-3 {
+            background-color: rgba(238, 251, 239, 0.6);
+        }
+
+        /* 5. 表格主体 (tbody) 的行与单元格样式 */
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #fafcff !important;
+        }
+
+        td,
+        th {
+            padding: 1.25rem 1rem;
             vertical-align: middle;
+            text-align: center !important;
+            border-color: #f0f0f0;
         }
 
-        /* 左对齐基础列以提高可读性 */
+        /* 6. 内容层次感 */
+        /* --- 修改开始：移除或注释掉基础列的左对齐规则 --- */
         td.base-column {
-            text-align: left;
+            /* text-align: left !important;  <-- 此行已被移除或注释 */
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #333;
         }
 
+        /* --- 修改结束 --- */
+
+        td.base-column a {
+            color: #3273dc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        td.base-column a:hover {
+            text-decoration: underline;
+        }
+
+        tbody td:not(.base-column) {
+            font-size: 1em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* 7. 选择器样式 */
         .selector-group {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
@@ -63,22 +133,16 @@
         #dataset-selector label {
             padding: 8px 20px;
             margin: 5px;
-            border: 1px solid #ced4da;
+            border: 1px solid #dbdbdb;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
-            font-size: 1rem;
         }
 
         #dataset-selector input[type="radio"]:checked+label {
-            background-color: #0d6efd;
+            background-color: #3273dc;
             color: #fff;
-            border-color: #0d6efd;
-            font-weight: 600;
-        }
-
-        #dataset-selector label:hover {
-            border-color: #8ab4f8;
+            border-color: #3273dc;
         }
 
         #version-selector {
@@ -90,7 +154,6 @@
             align-items: center;
             cursor: pointer;
             margin: 5px 15px;
-            font-size: 1rem;
             user-select: none;
         }
 
@@ -100,58 +163,66 @@
             width: 18px;
             height: 18px;
             margin-right: 8px;
-            border: 2px solid #adb5bd;
+            border: 2px solid #dbdbdb;
             border-radius: 50%;
             transition: all 0.2s ease-in-out;
             box-sizing: border-box;
         }
 
         #version-selector label:hover::before {
-            border-color: #0d6efd;
+            border-color: #3273dc;
         }
 
         #version-selector input[type="radio"]:checked+label::before {
-            border-color: #90ee90;
-            background-color: #90ee90;
+            border-color: #48c78e;
+            background-color: #48c78e;
             box-shadow: inset 0 0 0 3px #fff;
         }
 
         #version-selector input[type="radio"]:checked+label {
             font-weight: 600;
         }
-
-        thead th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            user-select: none;
-        }
-
-        thead th[data-metric-id] {
-            cursor: pointer;
-        }
-
-        thead th[data-metric-id]:hover {
-            background-color: #e9ecef;
-        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Ming-Freeform-Audio-Edit Leaderboard</h1>
-        <div id="dataset-selector" class="selector-group"></div>
-        <div id="version-selector" class="selector-group"></div>
-        <div id="leaderboard-container">
-            <table id="leaderboard-table">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-2">
+                    Ming-Freeform-Audio-Edit Leaderboard
+                </h1>
+                <p class="subtitle is-4">
+                    一个用于评测自由格式音频编辑任务的开放基准
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div id="dataset-selector" class="selector-group"></div>
+            <div id="version-selector" class="selector-group"></div>
+
+            <div id="leaderboard-container" class="table-container">
+                <table id="leaderboard-table" class="table is-hoverable is-fullwidth">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                项目主页模板由 <a href="https://bulma.io">Bulma</a> 强力驱动。
+            </p>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // --- 其他JS代码保持不变 ---
             const datasetSelector = document.getElementById('dataset-selector');
             const versionSelector = document.getElementById('version-selector');
             const tableHead = document.querySelector('#leaderboard-table thead');
@@ -160,7 +231,6 @@
             let currentDatasetId = '';
             let currentVersionId = '';
             let currentSort = { metricId: '', direction: '' };
-
             try {
                 const response = await fetch('./data/leaderboard_data.json');
                 allData = await response.json();
@@ -169,7 +239,6 @@
                 tableBody.innerHTML = '<tr><td colspan="100%">无法加载数据。</td></tr>';
                 return;
             }
-
             function init() {
                 const datasetIds = Object.keys(allData); if (datasetIds.length === 0) return;
                 currentDatasetId = datasetIds[0]; createDatasetSelector(datasetIds); updateVersionSelector(); render();
@@ -180,55 +249,52 @@
             function updateVersionSelector() {
                 versionSelector.innerHTML = ''; const dataset = allData[currentDatasetId]; const versionIds = Object.keys(dataset.versions); if (versionIds.length <= 1) { versionSelector.style.display = 'none'; currentVersionId = versionIds[0]; return; } versionSelector.style.display = 'flex'; currentVersionId = versionIds[0]; versionIds.forEach(id => { const input = document.createElement('input'); input.type = 'radio'; input.id = `ver-${id}`; input.name = 'version'; input.value = id; if (id === currentVersionId) input.checked = true; const label = document.createElement('label'); label.htmlFor = `ver-${id}`; label.textContent = dataset.versions[id].name; versionSelector.appendChild(input); versionSelector.appendChild(label); input.addEventListener('change', (e) => { currentVersionId = e.target.value; currentSort = { metricId: '', direction: '' }; render(); }); });
             }
-
-            // --- 修改开始：重构render函数，使其完全由JSON驱动 ---
             function render() {
                 if (!currentDatasetId || !currentVersionId) return;
-
                 const versionData = allData[currentDatasetId].versions[currentVersionId];
-                const columns = versionData.columns || []; // 基础列定义
+                const columns = versionData.columns || [];
                 const metricsData = versionData.metrics;
                 let models = [...versionData.models];
-
-                // 1. 生成表头 (Header)
                 let headerRow1 = '<tr>';
                 let headerRow2 = '<tr>';
-
-                // 1.1 生成基础列的表头
                 columns.forEach(col => {
                     headerRow1 += `<th rowspan="2">${col.name}</th>`;
                 });
-
-                // 1.2 生成指标列的表头
                 const flatMetrics = [];
+                let groupIndex = 0;
                 for (const groupKey in metricsData) {
                     const group = metricsData[groupKey];
                     const metricCount = group.list.length;
-                    headerRow1 += `<th colspan="${metricCount}">${group.name}</th>`;
+                    const colorClass = `th-group-${(groupIndex % 3) + 1}`;
+                    headerRow1 += `<th colspan="${metricCount}" class="${colorClass}">${group.name}</th>`;
                     group.list.forEach(metric => {
-                        headerRow2 += `<th data-metric-id="${metric.id}" data-sort-dir="${metric.sort}">${metric.name}</th>`;
+                        let sortIndicator = '';
+                        if (metric.id === currentSort.metricId) {
+                            const iconClass = currentSort.direction === 'asc' ? 'fa-arrow-up' : 'fa-arrow-down';
+                            sortIndicator = ` <span class="icon is-small"><i class="fas ${iconClass}"></i></span>`;
+                        }
+                        headerRow2 += `<th data-metric-id="${metric.id}" data-sort-dir="${metric.sort}" class="${colorClass}">${metric.name}${sortIndicator}</th>`;
                         flatMetrics.push(metric);
                     });
+                    groupIndex++;
                 }
                 headerRow1 += '</tr>';
                 headerRow2 += '</tr>';
                 tableHead.innerHTML = headerRow1 + headerRow2;
-
-                // 2. 数据排序 (Sorting)
+                if (!currentSort.metricId && flatMetrics.length > 0) {
+                    currentSort.metricId = flatMetrics[0].id;
+                    currentSort.direction = flatMetrics[0].sort;
+                }
                 if (currentSort.metricId) {
                     models.sort((a, b) => {
                         const valA = a.scores[currentSort.metricId];
                         const valB = b.scores[currentSort.metricId];
-                        return currentSort.direction === 'asc' ? valA - valB : valB - valA;
+                        return currentSort.direction === 'asc' ? (valA - valB) : (valB - valA);
                     });
                 }
-
-                // 3. 渲染表体 (Body)
                 tableBody.innerHTML = '';
                 models.forEach(model => {
                     let bodyRow = '<tr>';
-
-                    // 3.1 渲染基础列的数据
                     columns.forEach(col => {
                         const cellData = model[col.id];
                         let cellHtml = '-';
@@ -243,27 +309,25 @@
                         }
                         bodyRow += `<td class="base-column">${cellHtml}</td>`;
                     });
-
-                    // 3.2 渲染指标列的数据
                     flatMetrics.forEach(metric => {
                         bodyRow += `<td>${model.scores[metric.id] || '-'}</td>`;
                     });
-
                     bodyRow += '</tr>';
                     tableBody.innerHTML += bodyRow;
                 });
-
-                // 4. 为新表头添加事件监听
                 tableHead.querySelectorAll('th[data-metric-id]').forEach(th => {
                     th.addEventListener('click', () => {
-                        currentSort.metricId = th.dataset.metricId;
-                        currentSort.direction = th.dataset.sortDir;
+                        const newMetricId = th.dataset.metricId;
+                        if (currentSort.metricId === newMetricId) {
+                            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+                        } else {
+                            currentSort.metricId = newMetricId;
+                            currentSort.direction = th.dataset.sortDir;
+                        }
                         render();
                     });
                 });
             }
-            // --- 修改结束 ---
-
             init();
         });
     </script>
