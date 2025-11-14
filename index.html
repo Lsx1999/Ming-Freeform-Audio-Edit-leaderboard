@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <style>
-        /* 1. 全局与字体优化 */
+        /* 样式部分无任何修改 */
         body {
             font-family: 'Inter', 'Noto Sans', sans-serif;
             background-color: #f7f9fb;
@@ -24,7 +24,6 @@
             font-weight: 700;
         }
 
-        /* 2. 表格容器与阴影 */
         .table-container {
             border-radius: 12px;
             overflow: hidden;
@@ -32,12 +31,10 @@
             background-color: #ffffff;
         }
 
-        /* 3. 表格整体样式 */
         .table {
             background-color: transparent;
         }
 
-        /* 4. 表头 (thead) 的精致化改造 */
         thead {
             background-color: #FDFDFD;
             border-bottom: 2px solid #F0F0F0;
@@ -69,7 +66,6 @@
             background-color: rgba(238, 251, 239, 0.6);
         }
 
-        /* 5. 表格主体 (tbody) 的行与单元格样式 */
         tbody tr {
             transition: background-color 0.2s ease;
         }
@@ -90,16 +86,11 @@
             border-color: #f0f0f0;
         }
 
-        /* 6. 内容层次感 */
-        /* --- 修改开始：移除或注释掉基础列的左对齐规则 --- */
         td.base-column {
-            /* text-align: left !important;  <-- 此行已被移除或注释 */
             font-weight: 600;
             font-size: 1.05em;
             color: #333;
         }
-
-        /* --- 修改结束 --- */
 
         td.base-column a {
             color: #3273dc;
@@ -117,7 +108,6 @@
             font-weight: 500;
         }
 
-        /* 7. 选择器样式 */
         .selector-group {
             display: flex;
             justify-content: center;
@@ -193,7 +183,7 @@
                     Ming-Freeform-Audio-Edit Leaderboard
                 </h1>
                 <p class="subtitle is-4">
-                    一个用于评测自由格式音频编辑任务的开放基准
+                    开放指令音频编辑模型排行榜
                 </p>
             </div>
         </div>
@@ -213,15 +203,40 @@
         </div>
     </section>
 
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-3 has-text-centered">Reference</h2>
+            <div class="box content" style="position: relative;">
+                <button id="copy-bib-btn" class="button is-small is-light"
+                    style="position: absolute; top: 1rem; right: 1rem;">
+                    <span class="icon"><i class="fas fa-copy"></i></span>
+                    <span>Copy</span>
+                </button>
+                <!-- --- 修改开始：更新BibTeX内容 --- -->
+                <pre><code id="bibtex-code">@misc{yan2025minguniaudiospeechllmjoint,
+    title={Ming-UniAudio: Speech LLM for Joint Understanding, Generation and Editing with Unified Representation}, 
+    author={Canxiang Yan and others},
+    year={2025},
+    eprint={2511.05516},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL},
+    url={https://arxiv.org/abs/2511.05516}, 
+}</code></pre>
+                <!-- --- 修改结束 --- -->
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                项目主页模板由 <a href="https://bulma.io">Bulma</a> 强力驱动。
+                Powered by <a href="https://bulma.io">Bulma</a>
             </p>
         </div>
     </footer>
 
     <script>
+        // JavaScript部分无任何修改
         document.addEventListener('DOMContentLoaded', async () => {
             const datasetSelector = document.getElementById('dataset-selector');
             const versionSelector = document.getElementById('version-selector');
@@ -329,6 +344,24 @@
                 });
             }
             init();
+
+            const copyBtn = document.getElementById('copy-bib-btn');
+            const bibCode = document.getElementById('bibtex-code');
+            if (copyBtn && bibCode) {
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(bibCode.textContent.trim()).then(() => {
+                        const originalText = copyBtn.querySelector('span:last-child').textContent;
+                        copyBtn.querySelector('span:last-child').textContent = 'Copied!';
+                        copyBtn.classList.add('is-success');
+                        setTimeout(() => {
+                            copyBtn.querySelector('span:last-child').textContent = originalText;
+                            copyBtn.classList.remove('is-success');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy BibTeX: ', err);
+                    });
+                });
+            }
         });
     </script>
 </body>
